@@ -1,6 +1,5 @@
 package common;
 
-import jQuery.pageUIs.UploadFiles.BasePageUI;
 import nopCommerce.userpageUIs.UserRegisterPageUI;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
@@ -9,11 +8,7 @@ import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import pageObject.nopCommerce.admin.AdminLoginPageObject;
-import pageObject.nopCommerce.portal.UserAddressPageObject;
-import pageObject.nopCommerce.portal.UserHomePageObject;
-import pageObject.nopCommerce.portal.UserMyProductReviewPageObject;
-import pageObject.nopCommerce.portal.UserMyRewardPointPageObject;
+
 import nopCommerce.userpageUIs.UserBasePageUI;
 
 import java.util.List;
@@ -491,54 +486,7 @@ public class BasePage {
         //getByLocator(locator, dynamicValue)
     }
 
-    public void uploadMultipleFiles (WebDriver driver, String... fileNames) {
-        String filePath = GlobalConstants.UPLOAD_FILE;
-        String fullFileName = "";
-        for (String file: fileNames) {
-            fullFileName = fullFileName + filePath + file + "\n";
-        }
-        fullFileName = fullFileName.trim();
-        getDynamicWebElement(driver, BasePageUI.UPLOAD_FILE).sendKeys(fullFileName);
-    }
-    // Level 7: Switch Page
-    //open address page
-    public UserAddressPageObject openAddressPage (WebDriver driver) {
-        waitForElementClickable(driver, UserBasePageUI.ADDRESS_LINK);
-        clickToElement(driver, UserBasePageUI.ADDRESS_LINK);
-        return PageGeneratorManager.getAddressPage(driver);
-    }
 
-    // Level 7: Switch Page
-    //open my reward points page
-    public UserMyRewardPointPageObject openMyRewardPointPage (WebDriver driver) {
-        waitForElementClickable(driver, UserBasePageUI.REWARD_POINT_LINK);
-        clickToElement(driver, UserBasePageUI.REWARD_POINT_LINK);
-        return PageGeneratorManager.getMyRewardPoint(driver);
-    }
-
-    // Level 7: Switch Page
-    //open my product review page
-    public UserMyProductReviewPageObject openMyProductReviewPage (WebDriver driver) {
-        waitForElementClickable(driver, UserBasePageUI.PRODUCT_REVIEW_LINK);
-        clickToElement(driver, UserBasePageUI.PRODUCT_REVIEW_LINK);
-        return PageGeneratorManager.getMyProductReview(driver);
-    }
-
-    // Level 8: Switch Role
-    // click logout at user page
-    public UserHomePageObject clickToLogoutLinkAtUserPage (WebDriver driver) {
-        waitForElementClickable(driver, UserBasePageUI.LOGOUT_LINK_AT_USER);
-        clickToElement(driver, UserBasePageUI.LOGOUT_LINK_AT_USER);
-        return PageGeneratorManager.getHomePage(driver);
-    }
-
-    // Level 8: Swith Role
-    // click logout at admin page
-    public AdminLoginPageObject clickToLogoutLinkAtAdminPage (WebDriver driver) {
-        waitForElementClickable(driver, UserBasePageUI.LOGOUT_LINK_AT_ADMIN);
-        clickToElement(driver,UserBasePageUI.LOGOUT_LINK_AT_ADMIN);
-        return PageGeneratorManager.getAdminLoginPage(driver);
-    }
 
     public WebElement getShadowDOM (WebDriver driver, String locator) {
         JavascriptExecutor jsExecutor = (JavascriptExecutor) driver;
@@ -580,21 +528,7 @@ public class BasePage {
     }
 
 
-    public BasePage openPagesAtMyAccountByName (WebDriver driver, String pageName) {
-        waitForElementClickable(driver, UserBasePageUI.DYNAMIC_LINK, pageName);
-        clickToElement(driver, UserBasePageUI.DYNAMIC_LINK, pageName);
-        switch (pageName) {
-            case "Addresses" :
-                return PageGeneratorManager.getAddressPage(driver);
-            case "My product reviews" :
-                return PageGeneratorManager.getMyProductReview(driver);
-            case "Reward points":
-                return PageGeneratorManager.getMyRewardPoint(driver);
-            default:
-                throw new RuntimeException("Invalid page name at my account area");
 
-        }
-    }
 
     public Set<Cookie> getAllCookies (WebDriver driver) {
         return driver.manage().getCookies();

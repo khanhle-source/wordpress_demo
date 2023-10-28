@@ -34,11 +34,6 @@ public class Common_Register_User extends BaseTest {
         homePage = new UserHomePageObject(driver);
         registerPage = new UserRegisterPageObject(driver);
 
-        firstName = "khanh";
-        lastName = "le";
-        password ="123456";
-        emailAddress = "afc" + random() + "@email.vn";
-
     }
 
     @Test
