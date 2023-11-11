@@ -1,6 +1,4 @@
 package common;
-
-import nopCommerce.userpageUIs.UserRegisterPageUI;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.Color;
@@ -9,7 +7,6 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import nopCommerce.userpageUIs.UserBasePageUI;
 
 import java.util.List;
 import java.util.Set;
@@ -539,38 +536,6 @@ public class BasePage {
             driver.manage().addCookie(cookie);
         }
         sleepInSecond(3);
-    }
-
-
-    // Pattern Object
-    public void openPagesAtMyAccountByPageName (WebDriver driver, String pageName) {
-        waitForElementClickable(driver, UserBasePageUI.DYNAMIC_PAGES_AT_MY_ACCOUNT_AREA, pageName);
-        clickToElement(driver,UserBasePageUI.DYNAMIC_PAGES_AT_MY_ACCOUNT_AREA, pageName );
-    }
-    public void inputToTextboxByID (WebDriver driver, String textboxID, String value) {
-        waitForElementVisible(driver, UserBasePageUI.DYNAMIC_TEXTBOX_BY_ID, value);
-        sendKeyToElement(driver, UserBasePageUI.DYNAMIC_TEXTBOX_BY_ID, textboxID, value);
-    }
-    public void clickToButtonByText (WebDriver driver, String buttonText) {
-        waitForElementClickable(driver, UserBasePageUI.DYNAMIC_BUTTON_BY_TEXT, buttonText);
-        clickToElement(driver,UserBasePageUI.DYNAMIC_BUTTON_BY_TEXT, buttonText );
-    }
-
-    public void selectToDropdownByName (WebDriver driver, String dropdownAttributeName, String itemValue) {
-        waitForElementClickable(driver, UserBasePageUI.DYNAMIC_DROPDOWN_BY_NAME, dropdownAttributeName);
-        selectItemInDefaultDropdown(driver,UserBasePageUI.DYNAMIC_DROPDOWN_BY_NAME, itemValue, dropdownAttributeName);
-    }
-
-    public void selectRadioButtonByName (WebDriver driver, String radioButtonName) {
-        waitForElementClickable(driver, UserBasePageUI.DYNAMIC_RADIO_BUTTON_BY_NAME, radioButtonName);
-        checkToDefaultCheckbox(driver, UserBasePageUI.DYNAMIC_RADIO_BUTTON_BY_NAME, radioButtonName );
-
-    }
-
-    public String getTextboxValueByID (WebDriver driver, String textboxID) {
-        waitForElementVisible(driver, UserBasePageUI.DYNAMIC_TEXTBOX_BY_ID, textboxID);
-        return getElementAttribute(driver, UserBasePageUI.DYNAMIC_TEXTBOX_BY_ID, "value", textboxID);
-
     }
 
 }

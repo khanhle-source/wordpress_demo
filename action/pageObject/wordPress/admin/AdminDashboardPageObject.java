@@ -2,14 +2,19 @@ package pageObject.wordPress.admin;
 
 import common.BasePage;
 import common.PageGeneratorManager;
-import nopCommerce.adminpageUIs.AdminLoginPageUI;
 import org.openqa.selenium.WebDriver;
+import wordPress.adminpageUIs.AdminDashboardPageUI;
 
 public class AdminDashboardPageObject extends BasePage {
     private WebDriver driver;
 
     public AdminDashboardPageObject(WebDriver driver) {
         this.driver = driver;
+    }
+
+    public void clicktoPostMenuLink () {
+        waitForElementClickable(driver,AdminDashboardPageUI.ALL_POST_LINK);
+        clickToElement(driver, AdminDashboardPageUI.ALL_POST_LINK);
     }
 
 

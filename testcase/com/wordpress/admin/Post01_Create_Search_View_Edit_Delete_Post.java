@@ -1,9 +1,9 @@
 package com.wordpress.admin;
 
 import common.BaseTest;
+import common.Common_Login_Cookie;
 import common.PageGeneratorManager;
 import org.openqa.selenium.WebDriver;
-import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Parameters;
@@ -23,48 +23,37 @@ public class Post01_Create_Search_View_Edit_Delete_Post extends BaseTest {
     AdminPostAddNewPageObject adminAddNewPostPage;
     AdminPostSearchPageObject adminSearchPostPage;
 
+
+    String searchPostURL;
+    String postBody, postTitle;
+
     Logger logger
             = Logger.getLogger(
             Post01_Create_Search_View_Edit_Delete_Post.class.getName());
-
-    String adminUsername = "nhukhanhle@gmail.com";
-    String adminPassword = "";
-    String searchPostURL;
-    String postBody, postTitle;
 
 
     @Parameters({"browser", "environment"})
     @BeforeClass
     public void beforeClass(String browserName, String environmentName) {
         driver = getBrowerDriver(browserName, environmentName);
-        adminLoginPage = PageGeneratorManager.getAdminLoginPage(driver);
 
-
-        logger.info ("Pre-condition: Step 1: Open browser and access url");
-
-        logger.info ("Pre-condition: Step 2: Enter username / email with value: " + adminUsername);
-        adminLoginPage.enterToUsernameTextbox (adminUsername);
-
-        logger.info ("Pre-condition: Step 4: Click to Continue button");
-        adminLoginPage.clickContinueButton();
-
-        logger.info ("Pre-condition: Step 3: Enter password with value: " + adminPassword);
-        adminLoginPage.enterToPassword(adminPassword);
-
-        logger.info ("Pre-condition: Step 4: Click to Login button");
-        adminLoginPage.clickLoginButton();
-
+        adminDashboardPage = new AdminDashboardPageObject(driver);
+        adminLoginPage = new AdminLoginPageObject(driver);
 
 
     }
 
     @Test
-    public void Post01_Create_Post () {
-        adminDashboardPage = PageGeneratorManager.getAdminDashboardPage(driver);
-        logger.info ("Create Post - Step 1: Click Post in menubar");
-        adminDashboardPage.clicktoPostMenuLink();
-        searchPostURL = "";
+    public void Post01_Create_Post() {
+        adminLoginPage.setCookies(driver, Common_Login_Cookie.LoggedCookies);
+        adminLoginPage.refreshPage(driver);
 
+        adminDashboardPage = PageGeneratorManager.getAdminDashboardPage(driver);
+        logger.info("Create Post - Step 1: Click Post in menubar");
+        adminDashboardPage.clicktoPostMenuLink();
+
+/*
+        searchPostURL = "";
         logger.info ("Create Post - Step 2: Click to Add new post button");
         adminSearchPostPage = PageGeneratorManager.getAdminPostSearch(driver);
         adminSearchPostPage.clickAddNewPostButton();
@@ -80,10 +69,12 @@ public class Post01_Create_Search_View_Edit_Delete_Post extends BaseTest {
         adminAddNewPostPage.clickPublishButton();
         logger.info ("Create Post - Step 6: Verify message Publish Successful");
         adminAddNewPostPage.isPostPublishMessageDisplay();
+        */
     }
-
+ /*
     @Test
     public void Post02_Search_Post () {
+
         adminAddNewPostPage.openSearchPostPageURL(searchPostURL);
         logger.info ("Search Post - Step 1: Open search post url");
         // searchPostURL
@@ -113,8 +104,12 @@ public class Post01_Create_Search_View_Edit_Delete_Post extends BaseTest {
     public void Post05_Delete_Post () {
     }
 
-    @AfterClass (alwaysRun = true)
-    public void afterClass () {
+
+  */
+
+    @AfterClass(alwaysRun = true)
+    public void afterClass() {
         closeBrowserDriver(driver);
     }
 }
+

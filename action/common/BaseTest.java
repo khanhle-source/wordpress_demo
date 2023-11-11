@@ -39,21 +39,6 @@ public class BaseTest {
 
     }
 
-    protected String getEnvNameURL (String environmentName) {
-        String url = null;
-        switch (environmentName ) {
-            case "prod":
-                url = GlobalConstants.PORTAL_PAGE_URL;
-                break;
-            case "test":
-                url = GlobalConstants.TESTING_PORTAL_PAGE_URL;
-                break;
-            default:
-                break;
-        }
-        return url;
-    }
-
     public void closeBrowserDriver(WebDriver driver) {
         String cmd = null;
         try {
