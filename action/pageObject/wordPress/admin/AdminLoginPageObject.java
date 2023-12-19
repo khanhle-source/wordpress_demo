@@ -13,6 +13,9 @@ public class AdminLoginPageObject extends BasePage {
     public AdminLoginPageObject(WebDriver driver) {
         this.driver = driver;
     }
+    public static AdminLoginPageObject getAdminLoginPage (WebDriver driver) {
+        return new AdminLoginPageObject(driver);
+    }
 
     public void enterToUsernameTextbox (String adminUsername) {
         waitForElementVisible (driver, AdminLoginPageUI.USERNAME_TEXTBOX );

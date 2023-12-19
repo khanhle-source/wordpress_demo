@@ -12,9 +12,14 @@ public class AdminDashboardPageObject extends BasePage {
         this.driver = driver;
     }
 
-    public void clicktoPostMenuLink () {
+    public static AdminDashboardPageObject getAdminDashboardPage (WebDriver driver) {
+        return new AdminDashboardPageObject(driver);
+    }
+
+    public AdminPostSearchPageObject clicktoPostMenuLink () {
         waitForElementClickable(driver,AdminDashboardPageUI.POST_LINK);
         clickToElement(driver, AdminDashboardPageUI.POST_LINK);
+        return PageGeneratorManager.getAdminPostSearch(driver);
     }
 
 

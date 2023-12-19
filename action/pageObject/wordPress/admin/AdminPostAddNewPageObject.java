@@ -10,24 +10,39 @@ public class AdminPostAddNewPageObject extends BasePage {
     public AdminPostAddNewPageObject(WebDriver driver) {
         this.driver = driver;
     }
+    public static AdminPostAddNewPageObject getAdminPostAddNewPage (WebDriver driver) {
+        return new AdminPostAddNewPageObject(driver);
+    }
 
     public void enterTitle (String postTitle) {
-        waitForElementVisible(driver, AdminPostAddNewPageUI.ADD_TITLE_TEXTBOX);
+        switchToFrameIFrame (driver, AdminPostAddNewPageUI.IFRAME);
+        waitForElementClickable(driver, AdminPostAddNewPageUI.ADD_TITLE_TEXTBOX);
+        clickToElement(driver, AdminPostAddNewPageUI.ADD_TITLE_TEXTBOX);
         sendKeyToElement(driver, AdminPostAddNewPageUI.ADD_TITLE_TEXTBOX,postTitle);
     }
 
     public void enterBody (String postBody) {
-        waitForElementVisible(driver, AdminPostAddNewPageUI.ADD_CONTENT_TEXTBOX);
+        waitForElementClickable(driver, AdminPostAddNewPageUI.ADD_CONTENT_TEXTBOX);
+        clickToElement(driver,AdminPostAddNewPageUI.ADD_CONTENT_TEXTBOX );
+
         sendKeyToElement(driver, AdminPostAddNewPageUI.ADD_CONTENT_TEXTBOX, postBody);
     }
 
     public void clickPublishButton () {
-        waitForElementVisible(driver, AdminPostAddNewPageUI.PUBLISH_BUTTON);
+        switchToFrameIFrame (driver, AdminPostAddNewPageUI.IFRAME);
+        waitForElementClickable(driver, AdminPostAddNewPageUI.PUBLISH_BUTTON);
         clickToElement(driver,AdminPostAddNewPageUI.PUBLISH_BUTTON);
         clickToElement(driver,AdminPostAddNewPageUI.PUBLISH_BUTTON);
     }
 
+    public void clickToolsButton () {
+        switchToFrameIFrame (driver, AdminPostAddNewPageUI.IFRAME);
+        waitForElementClickable(driver, AdminPostAddNewPageUI.TOOL_BUTTON);
+        clickToElement(driver, AdminPostAddNewPageUI.TOOL_BUTTON);
+    }
+
     public boolean isPostPublishMessageDisplay (String postPublishedMessage) {
+        switchToFrameIFrame (driver, AdminPostAddNewPageUI.IFRAME);
         waitForElementVisible(driver, AdminPostAddNewPageUI.PUBLISHED_SUCCESSFUL_MESSAGE, postPublishedMessage);
         return isElementDisplayed(driver, AdminPostAddNewPageUI.PUBLISHED_SUCCESSFUL_MESSAGE, postPublishedMessage);
     }

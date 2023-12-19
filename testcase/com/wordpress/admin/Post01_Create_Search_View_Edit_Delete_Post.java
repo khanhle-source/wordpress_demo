@@ -5,6 +5,7 @@ import common.Common_Login_Cookie;
 import common.PageGeneratorManager;
 import org.openqa.selenium.Cookie;
 import org.openqa.selenium.WebDriver;
+import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Parameters;
@@ -25,9 +26,9 @@ public class Post01_Create_Search_View_Edit_Delete_Post extends BaseTest {
     AdminPostAddNewPageObject adminAddNewPostPage;
     AdminPostSearchPageObject adminSearchPostPage;
 
-    public static Set<Cookie> LoggedCookies;
-    public static String emailAddress;
-    public static String password;
+   // public static Set<Cookie> LoggedCookies;
+    public static String emailAddress = "nhukhanhle@gmail.com";
+    public static String password = "WVTvsgkr4ZmS!MLFo3&IXI^1";
     String searchPostURL;
     String postBody, postTitle;
 
@@ -43,20 +44,21 @@ public class Post01_Create_Search_View_Edit_Delete_Post extends BaseTest {
     public void beforeClass(String browserName, String environmentName) {
         logger.info ("Pre-condition: Step 1: Open browser and access url");
         driver = getBrowerDriver(browserName, environmentName);
+        adminLoginPage = PageGeneratorManager.getAdminLoginPage(driver);
 
-        password ="WVTvsgkr4ZmS!MLFo3&IXI^1";
-        emailAddress = "nhukhanhle@gmail.com";
-        adminDashboardPage = new AdminDashboardPageObject(driver);
-        adminLoginPage = new AdminLoginPageObject(driver);
 
         logger.info ("Pre-condition: Step 2: Enter username / email with value: " + emailAddress);
         adminLoginPage.enterToUsernameTextbox(emailAddress);
+
         logger.info ("Pre-condition: Step 4: Click to Continue button");
         adminLoginPage.clickContinueButton();
+
         logger.info ("Pre-condition: Step 3: Enter password with value: ");
         adminLoginPage.enterToPasswordTextbox(password);
+
         logger.info ("Pre-condition: Step 4: Click to Login button");
         adminDashboardPage = adminLoginPage.clickToLoginButton();
+
        /* // get cookies
         LoggedCookies = adminDashboardPage.getAllCookies(driver);
         for (Cookie cookie : Common_Login_Cookie.LoggedCookies) {
@@ -73,25 +75,15 @@ public class Post01_Create_Search_View_Edit_Delete_Post extends BaseTest {
 
     @Test
     public void Post01_Create_Post() {
-
-
-        adminDashboardPage = PageGeneratorManager.getAdminDashboardPage(driver);
         logger.info("Create Post - Step 1: Click Post in menubar");
-        adminDashboardPage.clicktoPostMenuLink();
-
+        adminSearchPostPage = adminDashboardPage.clicktoPostMenuLink();
 
         searchPostURL = "";
         logger.info ("Create Post - Step 2: Click to Add new post button");
-        adminSearchPostPage = PageGeneratorManager.getAdminPostSearch(driver);
-        adminSearchPostPage.clickAddNewPostButton();
+        adminAddNewPostPage = adminSearchPostPage.clickAddNewPostButton();
+       // searchPostURL = adminSearchPostPage.getURl(driver);
 
         logger.info ("Create Post - Step 3: Enter title");
-        adminAddNewPostPage = PageGeneratorManager.getAdminPostAddNew(driver);
-        try{
-            Thread.sleep(6000);
-        }
-        catch(InterruptedException ie){
-        }
         postTitle="Title Name";
         adminAddNewPostPage.enterTitle(postTitle);
 
@@ -104,8 +96,8 @@ public class Post01_Create_Search_View_Edit_Delete_Post extends BaseTest {
         adminAddNewPostPage.clickPublishButton();
 
         logger.info ("Create Post - Step 6: Verify message Publish Successful");
-        String postPublishedMessage = "";
-        adminAddNewPostPage.isPostPublishMessageDisplay(postPublishedMessage);
+        String postPublishedMessage = "Post published.";
+        Assert.assertTrue(adminAddNewPostPage.isPostPublishMessageDisplay(postPublishedMessage));
 
     }
  /*
