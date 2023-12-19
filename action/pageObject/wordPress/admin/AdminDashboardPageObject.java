@@ -13,8 +13,8 @@ public class AdminDashboardPageObject extends BasePage {
     }
 
     public void clicktoPostMenuLink () {
-        waitForElementClickable(driver,AdminDashboardPageUI.ALL_POST_LINK);
-        clickToElement(driver, AdminDashboardPageUI.ALL_POST_LINK);
+        waitForElementClickable(driver,AdminDashboardPageUI.POST_LINK);
+        clickToElement(driver, AdminDashboardPageUI.POST_LINK);
     }
 
 

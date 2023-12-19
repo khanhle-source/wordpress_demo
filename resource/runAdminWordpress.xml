@@ -5,14 +5,9 @@
 
     <test name="Run on Chrome">
         <parameter name = "browser" value="chrome" />
-        <packages>
-            <package name="com.wordpress.admin"> </package>
-        </packages>
-    </test>
-    <test name="Run on Firefox">
-        <parameter name = "browser" value="firefox" />
         <classes>
-            <class name="common.Common_Login_Cookie"></class>
+
+            <class name="com.wordpress.admin.Post01_Create_Search_View_Edit_Delete_Post"></class>
         </classes>
     </test>
 </suite>

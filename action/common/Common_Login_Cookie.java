@@ -54,6 +54,9 @@ public class Common_Login_Cookie extends BaseTest {
         dashboardPage = loginPage.clickToLoginButton();
         // get cookies
         LoggedCookies = dashboardPage.getAllCookies(driver);
+        for (Cookie cookie : Common_Login_Cookie.LoggedCookies) {
+            System.out.println("Cookie la: " + cookie);
+        }
 
     }
 
