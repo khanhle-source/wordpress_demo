@@ -31,7 +31,7 @@ public class BasePage {
     }
 
     //get page URL
-    protected String getPageURL (WebDriver driver) {
+    public String getPageURL (WebDriver driver) {
         return driver.getCurrentUrl();
     }
 
@@ -537,5 +537,7 @@ public class BasePage {
         }
         sleepInSecond(3);
     }
+
+
 
 }

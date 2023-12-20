@@ -14,6 +14,8 @@ import pageObject.wordPress.admin.AdminLoginPageObject;
 import pageObject.wordPress.admin.AdminDashboardPageObject;
 import pageObject.wordPress.admin.AdminPostAddNewPageObject;
 import pageObject.wordPress.admin.AdminPostSearchPageObject;
+import pageObject.wordPress.user.UserHomePageObject;
+import pageObject.wordPress.user.UserPostDetailPageObject;
 
 import java.util.Set;
 import java.util.logging.Logger;
@@ -25,27 +27,34 @@ public class Post01_Create_Search_View_Edit_Delete_Post extends BaseTest {
     AdminDashboardPageObject adminDashboardPage;
     AdminPostAddNewPageObject adminAddNewPostPage;
     AdminPostSearchPageObject adminSearchPostPage;
+    UserHomePageObject userHomePage;
+    UserPostDetailPageObject userPostDetailPage;
 
    // public static Set<Cookie> LoggedCookies;
     public static String emailAddress = "nhukhanhle@gmail.com";
     public static String password = "WVTvsgkr4ZmS!MLFo3&IXI^1";
     String searchPostURL;
-    String postBody, postTitle;
-
-
+    String postBody, postTitle, authorName;
+    String adminURL, userURL;
+    String currentDay = getToday();
 
     Logger logger
             = Logger.getLogger(
             Post01_Create_Search_View_Edit_Delete_Post.class.getName());
 
 
-    @Parameters({"browser", "environment"})
+    @Parameters({"browser", "urlAdmin", "urlUser"})
     @BeforeClass
-    public void beforeClass(String browserName, String environmentName) {
+    public void beforeClass(String browserName, String adminURL, String userURL) {
         logger.info ("Pre-condition: Step 1: Open browser and access url");
-        driver = getBrowerDriver(browserName, environmentName);
-        adminLoginPage = PageGeneratorManager.getAdminLoginPage(driver);
+        //dung this vi gan gia tri adminURL o bien local toi bien adminURL global
+        this.adminURL = adminURL;
+        this.userURL = userURL;
 
+        driver = getBrowerDriver(browserName, this.adminURL);
+        adminLoginPage = PageGeneratorManager.getAdminLoginPage(driver);
+        postTitle="Title Name" + random();
+        postBody ="Body Content" + random();
 
         logger.info ("Pre-condition: Step 2: Enter username / email with value: " + emailAddress);
         adminLoginPage.enterToUsernameTextbox(emailAddress);
@@ -81,14 +90,13 @@ public class Post01_Create_Search_View_Edit_Delete_Post extends BaseTest {
         searchPostURL = "";
         logger.info ("Create Post - Step 2: Click to Add new post button");
         adminAddNewPostPage = adminSearchPostPage.clickAddNewPostButton();
-       // searchPostURL = adminSearchPostPage.getURl(driver);
+        searchPostURL = adminSearchPostPage.getPageURL(driver);
+        System.out.println("search URL" + searchPostURL);
 
         logger.info ("Create Post - Step 3: Enter title");
-        postTitle="Title Name";
         adminAddNewPostPage.enterTitle(postTitle);
 
         logger.info ("Create Post - Step 4: Enter body");
-        postBody ="Body Content";
         adminAddNewPostPage.enterBody(postBody);
 
 
@@ -96,30 +104,48 @@ public class Post01_Create_Search_View_Edit_Delete_Post extends BaseTest {
         adminAddNewPostPage.clickPublishButton();
 
         logger.info ("Create Post - Step 6: Verify message Publish Successful");
-        String postPublishedMessage = "Post published.";
-        Assert.assertTrue(adminAddNewPostPage.isPostPublishMessageDisplay(postPublishedMessage));
+        Assert.assertTrue(adminAddNewPostPage.isPostPublishMessageDisplay());
 
     }
- /*
+
     @Test
     public void Post02_Search_Post () {
-
-        adminAddNewPostPage.openSearchPostPageURL(searchPostURL);
         logger.info ("Search Post - Step 1: Open search post url");
-        // searchPostURL
+        adminAddNewPostPage.openSearchPostPageURL(searchPostURL);
 
-        logger.info ("Search Post - Step 2: Open user url");
+        logger.info ("Search Post - Step 2: Click on Search icon");
+        adminSearchPostPage.clickToSearchPostsButton();
 
+        logger.info ("Search Post - Step 3: Input search keyword in search box");
+        adminSearchPostPage.enterToSearchTextbox(postTitle);
 
-        logger.info ("Search Post - Step 3: Verify title");
+        logger.info ("Search Post - Step 4: Verify search table contains '" + postTitle + "'");
+        Assert.assertTrue(adminSearchPostPage.isPostSearchTableDisplayed("Title", postTitle));
 
-        logger.info ("Search Post - Step 4: Verify body");
+        logger.info ("Search Post - Step 5: Verify search table contains '" + authorName + "'");
+        Assert.assertTrue(adminSearchPostPage.isPostSearchTableDisplayed("Author", authorName));
 
-        logger.info ("Search Post - Step 5: Verify post by");
+        logger.info ("Search Post - Step 6: Open End User site");
+        userHomePage = adminSearchPostPage.openEndUserSite(this.userURL);
 
-        logger.info ("Search Post - Step 6: Verify post on");
+        logger.info ("Search Post - Step 7: Verify Post infor displayed at Homepage");
+        Assert.assertTrue(userHomePage.isPostInfoDisplayed(postTitle));
+        Assert.assertTrue(userHomePage.isPostInfoDisplayed(postBody));
+        Assert.assertTrue(userHomePage.isPostInfoDisplayed(authorName));
+        Assert.assertTrue(userHomePage.isPostInfoDisplayed("Posted on " + currentDay));
+
+        logger.info ("Search Post - Step 8: Verify Post infor displayed at Homepage");
+        userPostDetailPage = userHomePage.clickToPostTitle(postTitle);
+
+        logger.info ("Search Post - Step 7: Verify Post infor displayed at Homepage");
+        Assert.assertTrue(userPostDetailPage.isPostInfoDisplayed(postTitle));
+        Assert.assertTrue(userPostDetailPage.isPostInfoDisplayed(postBody));
+        Assert.assertTrue(userPostDetailPage.isPostInfoDisplayed(authorName));
+        Assert.assertTrue(userPostDetailPage.isPostInfoDisplayed("Posted on " + currentDay));
+
     }
 
+    /*
     @Test
     public void Post03_View_Post () {
 
@@ -133,8 +159,7 @@ public class Post01_Create_Search_View_Edit_Delete_Post extends BaseTest {
     public void Post05_Delete_Post () {
     }
 
-
-  */
+    */
 
     @AfterClass(alwaysRun = true)
     public void afterClass() {

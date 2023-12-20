@@ -5,6 +5,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.safari.SafariDriver;
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 
 import java.io.IOException;
 import java.util.Random;
@@ -84,8 +86,36 @@ public class BaseTest {
         }
     }
 
+    protected String getCurrentDay () {
+        DateTime nowUTC = new DateTime ();
+        int day = nowUTC.getDayOfMonth();
+        if (day < 10) {
+            String dayValue = "0" + day;
+            return  dayValue;
+        }
+        return String.valueOf(day);
+    }
 
-    protected int random () {
+    protected String getCurrentMonth() {
+        DateTime now = new DateTime();
+        int month = now.getMonthOfYear();
+        if (month < 10) {
+            String monthValue = "0" + month;
+            return monthValue;
+        }
+        return  String.valueOf(month);
+    }
+
+    protected String getCurrentYear () {
+        DateTime now = new DateTime();
+        return String.valueOf(now.getYear());
+    }
+    protected  String getToday () {
+        return getCurrentDay() + "/"  + getCurrentMonth() + "/" + getCurrentYear() ;
+    }
+
+
+    public int random () {
         Random rnd = new Random();
         return rnd.nextInt(999);
     }

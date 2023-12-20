@@ -22,28 +22,30 @@ public class AdminPostAddNewPageObject extends BasePage {
     }
 
     public void enterBody (String postBody) {
-        waitForElementClickable(driver, AdminPostAddNewPageUI.ADD_CONTENT_TEXTBOX);
-        clickToElement(driver,AdminPostAddNewPageUI.ADD_CONTENT_TEXTBOX );
-
-        sendKeyToElement(driver, AdminPostAddNewPageUI.ADD_CONTENT_TEXTBOX, postBody);
+        waitForElementClickable(driver, AdminPostAddNewPageUI.ADD_CONTENT_TEXTBOX_BEFORE);
+        clickToElement(driver,AdminPostAddNewPageUI.ADD_CONTENT_TEXTBOX_BEFORE );
+        clickToElement(driver, AdminPostAddNewPageUI.ADD_CONTENT_TEXTBOX_AFTER);
+        sendKeyToElement(driver, AdminPostAddNewPageUI.ADD_CONTENT_TEXTBOX_AFTER, postBody);
     }
 
     public void clickPublishButton () {
-        switchToFrameIFrame (driver, AdminPostAddNewPageUI.IFRAME);
         waitForElementClickable(driver, AdminPostAddNewPageUI.PUBLISH_BUTTON);
         clickToElement(driver,AdminPostAddNewPageUI.PUBLISH_BUTTON);
-        clickToElement(driver,AdminPostAddNewPageUI.PUBLISH_BUTTON);
+        clickToElement(driver,AdminPostAddNewPageUI.PRE_PUBLISH_BUTTON);
     }
 
     public void clickToolsButton () {
-        switchToFrameIFrame (driver, AdminPostAddNewPageUI.IFRAME);
         waitForElementClickable(driver, AdminPostAddNewPageUI.TOOL_BUTTON);
         clickToElement(driver, AdminPostAddNewPageUI.TOOL_BUTTON);
     }
 
-    public boolean isPostPublishMessageDisplay (String postPublishedMessage) {
-        switchToFrameIFrame (driver, AdminPostAddNewPageUI.IFRAME);
-        waitForElementVisible(driver, AdminPostAddNewPageUI.PUBLISHED_SUCCESSFUL_MESSAGE, postPublishedMessage);
-        return isElementDisplayed(driver, AdminPostAddNewPageUI.PUBLISHED_SUCCESSFUL_MESSAGE, postPublishedMessage);
+    public boolean isPostPublishMessageDisplay () {
+        waitForElementVisible(driver, AdminPostAddNewPageUI.PUBLISHED_SUCCESSFUL_MESSAGE);
+        return isElementDisplayed(driver, AdminPostAddNewPageUI.PUBLISHED_SUCCESSFUL_MESSAGE);
+    }
+
+    public void openSearchPostPageURL(String URL) {
+        getURl(driver, URL);
+        sleepInSecond(5);
     }
 }

@@ -22,6 +22,4 @@ public class AdminPostSearchPageObject extends BasePage {
         return PageGeneratorManager.getAdminPostAddNew(driver);
     }
 
-
-
 }

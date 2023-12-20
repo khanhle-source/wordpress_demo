@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 <suite name="Wordpress">
-    <parameter name = "environment" value="https://nhukhanhle.wordpress.com/wp-admin/" />
-
+    <parameter name = "urlAdmin" value="https://nhukhanhle.wordpress.com/wp-admin/" />
+    <parameter name = "urlUser" value="https://nhukhanhle.wordpress.com" />
     <test name="Run on Chrome">
         <parameter name = "browser" value="chrome" />
         <classes>
