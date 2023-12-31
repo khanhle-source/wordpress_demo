@@ -106,12 +106,53 @@ public class BaseTest {
         return  String.valueOf(month);
     }
 
+    protected String getCurrentMonthByName () {
+        String monthByName ="";
+        if (getCurrentMonth() == "1") {
+            monthByName = "Jan";
+        }
+        if (getCurrentMonth() == "2") {
+            monthByName = "Feb";
+        }
+        if (getCurrentMonth() == "3") {
+            monthByName = "Mar";
+        }
+        if (getCurrentMonth() == "4") {
+            monthByName = "Apr";
+        }
+        if (getCurrentMonth() == "5") {
+            monthByName = "May";
+        }
+        if (getCurrentMonth() == "6") {
+            monthByName = "Jun";
+        }
+        if (getCurrentMonth() == "7") {
+            monthByName = "Jul";
+        }
+        if (getCurrentMonth() == "8") {
+            monthByName = "Aug";
+        }
+        if (getCurrentMonth() == "9") {
+            monthByName = "Sep";
+        }
+        if (getCurrentMonth() == "10") {
+            monthByName = "Oct";
+        }
+        if (getCurrentMonth() == "11") {
+            monthByName = "Nov";
+        }
+        if (getCurrentMonth() == "12") {
+            monthByName = "Dec";
+        }
+        return monthByName;
+    }
+
     protected String getCurrentYear () {
         DateTime now = new DateTime();
         return String.valueOf(now.getYear());
     }
     protected  String getToday () {
-        return getCurrentDay() + "/"  + getCurrentMonth() + "/" + getCurrentYear() ;
+        return getCurrentMonthByName() + " " + getCurrentDay() + "/" + getCurrentYear() ;
     }
 
 

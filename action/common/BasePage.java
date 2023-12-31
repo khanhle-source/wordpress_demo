@@ -6,6 +6,7 @@ import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import pageObject.wordPress.user.UserHomePageObject;
 
 
 import java.util.List;
@@ -536,6 +537,11 @@ public class BasePage {
             driver.manage().addCookie(cookie);
         }
         sleepInSecond(3);
+    }
+
+    public UserHomePageObject openEndUserSite (WebDriver driver, String userURL) {
+        getURl(driver, userURL);
+        return PageGeneratorManager.getUserHomePage(driver);
     }
 
 

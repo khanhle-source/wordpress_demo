@@ -5,6 +5,8 @@ import pageObject.wordPress.admin.AdminDashboardPageObject;
 import pageObject.wordPress.admin.AdminLoginPageObject;
 import pageObject.wordPress.admin.AdminPostAddNewPageObject;
 import pageObject.wordPress.admin.AdminPostSearchPageObject;
+import pageObject.wordPress.user.UserHomePageObject;
+import pageObject.wordPress.user.UserPostDetailPageObject;
 
 public class PageGeneratorManager {
 
@@ -24,4 +26,11 @@ public class PageGeneratorManager {
         return new AdminPostSearchPageObject(driver);
     }
 
+    public static UserHomePageObject getUserHomePage(WebDriver driver) {
+        return new UserHomePageObject(driver);
+    }
+
+    public static UserPostDetailPageObject getUserPageDetail(WebDriver driver) {
+        return new UserPostDetailPageObject(driver);
+    }
 }

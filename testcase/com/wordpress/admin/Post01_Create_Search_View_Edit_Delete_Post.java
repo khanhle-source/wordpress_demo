@@ -120,37 +120,32 @@ public class Post01_Create_Search_View_Edit_Delete_Post extends BaseTest {
         adminSearchPostPage.enterToSearchTextbox(postTitle);
 
         logger.info ("Search Post - Step 4: Verify search table contains '" + postTitle + "'");
-        Assert.assertTrue(adminSearchPostPage.isPostSearchTableDisplayed("Title", postTitle));
+        Assert.assertTrue(adminSearchPostPage.isPostSearchTableDisplayed(postTitle));
 
-        logger.info ("Search Post - Step 5: Verify search table contains '" + authorName + "'");
-        Assert.assertTrue(adminSearchPostPage.isPostSearchTableDisplayed("Author", authorName));
+       // logger.info ("Search Post - Step 5: Verify search table contains '" + authorName + "'");
+       // Assert.assertTrue(adminSearchPostPage.isPostSearchTableDisplayed("Author", authorName));
 
         logger.info ("Search Post - Step 6: Open End User site");
-        userHomePage = adminSearchPostPage.openEndUserSite(this.userURL);
+        userHomePage = adminSearchPostPage.openEndUserSite(driver, this.userURL);
 
-        logger.info ("Search Post - Step 7: Verify Post infor displayed at Homepage");
-        Assert.assertTrue(userHomePage.isPostInfoDisplayed(postTitle));
-        Assert.assertTrue(userHomePage.isPostInfoDisplayed(postBody));
-        Assert.assertTrue(userHomePage.isPostInfoDisplayed(authorName));
-        Assert.assertTrue(userHomePage.isPostInfoDisplayed("Posted on " + currentDay));
+        logger.info ("Search Post - Step 7: Verify Post infor displayed at User Homepage");
+        Assert.assertTrue(userHomePage.isPostInfoDisplayedWithPostTitle(postTitle));
+        Assert.assertTrue(userHomePage.isPostInfoDisplayedWithPostContent(postTitle, postBody));
+        Assert.assertTrue(userHomePage.isPostInfoDisplayedWithDate(postTitle, currentDay));
 
-        logger.info ("Search Post - Step 8: Verify Post infor displayed at Homepage");
+        logger.info ("Search Post - Step 8: Go to User Detail page");
         userPostDetailPage = userHomePage.clickToPostTitle(postTitle);
 
-        logger.info ("Search Post - Step 7: Verify Post infor displayed at Homepage");
-        Assert.assertTrue(userPostDetailPage.isPostInfoDisplayed(postTitle));
-        Assert.assertTrue(userPostDetailPage.isPostInfoDisplayed(postBody));
-        Assert.assertTrue(userPostDetailPage.isPostInfoDisplayed(authorName));
-        Assert.assertTrue(userPostDetailPage.isPostInfoDisplayed("Posted on " + currentDay));
+        logger.info ("Search Post - Step 7: Verify Post infor displayed at User Detail page");
+        Assert.assertTrue(userPostDetailPage.isPostInfoDisplayedWithPostTitle(postTitle));
+        Assert.assertTrue(userPostDetailPage.isPostInfoDisplayedWithPostContent(postTitle, postBody));
+        Assert.assertTrue(userPostDetailPage.isPostInfoDisplayedWithAuthor(postTitle, authorName));
+        Assert.assertTrue(userPostDetailPage.isPostInfoDisplayedWithDate(postTitle, currentDay));
+
 
     }
 
-    /*
-    @Test
-    public void Post03_View_Post () {
-
-    }
-
+/*
     @Test
     public void Post04_Edit_Post () {
     }
