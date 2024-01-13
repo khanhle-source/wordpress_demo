@@ -2,6 +2,7 @@ package pageObject.wordPress.admin;
 
 import common.BasePage;
 import common.PageGeneratorManager;
+import org.openqa.grid.internal.exception.NewSessionException;
 import org.openqa.selenium.WebDriver;
 import wordPress.adminpageUIs.AdminPostSearchPageUI;
 
@@ -34,5 +35,26 @@ public class AdminPostSearchPageObject extends BasePage {
 
     public boolean isPostSearchTableDisplayed(String postTitle) {
         return isElementDisplayed(driver,AdminPostSearchPageUI.SEARCH_RESULT,postTitle);
+    }
+
+    public AdminPostAddNewPageObject clickToPostTitle(String postTitle) {
+        waitForElementClickable(driver, AdminPostSearchPageUI.SEARCH_RESULT,postTitle);
+        clickToElement(driver, AdminPostSearchPageUI.SEARCH_RESULT,postTitle );
+        return PageGeneratorManager.getAdminPostAddNew(driver);
+    }
+
+    public void clickToEllipsisMenu (String postTitle) {
+        waitForElementClickable(driver, AdminPostSearchPageUI.ELLIPSIS_MENU,postTitle);
+        clickToElement(driver, AdminPostSearchPageUI.ELLIPSIS_MENU,postTitle );
+    }
+
+    public void clickToTrashButton () {
+        waitForElementClickable(driver, AdminPostSearchPageUI.TRASH_BUTTON);
+        clickToElement(driver, AdminPostSearchPageUI.TRASH_BUTTON);
+    }
+
+    public boolean isMoveToTrashSuccessfulMessageDisplayed() {
+        waitForElementVisible(driver,AdminPostSearchPageUI.SUCCESSFUL_MOVE_TO_TRASH_MESSAGE);
+        return isElementDisplayed(driver,AdminPostSearchPageUI.SUCCESSFUL_MOVE_TO_TRASH_MESSAGE);
     }
 }

@@ -2,6 +2,7 @@ package pageObject.wordPress.user;
 
 import common.BasePage;
 import org.openqa.selenium.WebDriver;
+import pageObject.wordPress.admin.AdminDashboardPageObject;
 import wordPress.userpageUIs.UserPostDetailPageUI;
 
 public class UserPostDetailPageObject extends BasePage {

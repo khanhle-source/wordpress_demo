@@ -152,7 +152,7 @@ public class BaseTest {
         return String.valueOf(now.getYear());
     }
     protected  String getToday () {
-        return getCurrentMonthByName() + " " + getCurrentDay() + "/" + getCurrentYear() ;
+        return getCurrentMonthByName() + " " + getCurrentDay() + ", " + getCurrentYear() ;
     }
 
 

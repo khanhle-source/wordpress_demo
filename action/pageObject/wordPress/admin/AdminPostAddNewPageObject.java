@@ -1,7 +1,10 @@
 package pageObject.wordPress.admin;
 
 import common.BasePage;
+import common.PageGeneratorManager;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import pageObject.wordPress.user.UserHomePageObject;
 import wordPress.adminpageUIs.AdminPostAddNewPageUI;
 
 public class AdminPostAddNewPageObject extends BasePage {
@@ -28,6 +31,13 @@ public class AdminPostAddNewPageObject extends BasePage {
         sendKeyToElement(driver, AdminPostAddNewPageUI.ADD_CONTENT_TEXTBOX_AFTER, postBody);
     }
 
+    public void enterBodyUpdated (String postBodyUpdated) {
+        waitForElementClickable(driver, AdminPostAddNewPageUI.UPDATE_CONTENT_TEXTBOX_BEFORE);
+        clickToElement(driver,AdminPostAddNewPageUI.UPDATE_CONTENT_TEXTBOX_BEFORE);
+        sendKeyToElement(driver, AdminPostAddNewPageUI.UPDATE_CONTENT_TEXTBOX_AFTER, postBodyUpdated);
+
+    }
+
     public void clickPublishButton () {
         waitForElementClickable(driver, AdminPostAddNewPageUI.PUBLISH_BUTTON);
         clickToElement(driver,AdminPostAddNewPageUI.PUBLISH_BUTTON);
@@ -46,6 +56,24 @@ public class AdminPostAddNewPageObject extends BasePage {
 
     public void openSearchPostPageURL(String URL) {
         getURl(driver, URL);
-        sleepInSecond(5);
+        sleepInSecond(3);
     }
+
+    public void clickUpdateButton() {
+        waitForElementClickable(driver, AdminPostAddNewPageUI.UPDATE_BUTTON);
+        clickToElement(driver,AdminPostAddNewPageUI.UPDATE_BUTTON);
+    }
+
+    public boolean isPostUpdatedMessageDisplay () {
+        waitForElementVisible(driver, AdminPostAddNewPageUI.POST_UPDATED_MASSEGE_SNACKBAR);
+        return isElementDisplayed(driver, AdminPostAddNewPageUI.POST_UPDATED_MASSEGE_SNACKBAR);
+    }
+
+    public UserHomePageObject clickViewPostLink () {
+        waitForElementClickable(driver, AdminPostAddNewPageUI.VIEW_POST_LINK_SNACKBAR);
+        clickToElement(driver, AdminPostAddNewPageUI.VIEW_POST_LINK_SNACKBAR);
+        return PageGeneratorManager.getUserHomePage(driver);
+    }
+
+
 }

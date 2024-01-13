@@ -6,6 +6,7 @@ import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import pageObject.wordPress.admin.AdminDashboardPageObject;
 import pageObject.wordPress.user.UserHomePageObject;
 
 
@@ -542,6 +543,12 @@ public class BasePage {
     public UserHomePageObject openEndUserSite (WebDriver driver, String userURL) {
         getURl(driver, userURL);
         return PageGeneratorManager.getUserHomePage(driver);
+    }
+
+    public AdminDashboardPageObject openAdminSite (WebDriver driver, String adminURL) {
+        getURl(driver, adminURL);
+        return PageGeneratorManager.getAdminDashboardPage(driver);
+
     }
 
 
