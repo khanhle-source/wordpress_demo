@@ -3,13 +3,18 @@ package common;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
+import org.openqa.selenium.firefox.FirefoxProfile;
 import org.openqa.selenium.safari.SafariDriver;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 
+import java.io.File;
 import java.io.IOException;
-import java.util.Random;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 public class BaseTest {
@@ -25,12 +30,62 @@ public class BaseTest {
         if (browserName.equals("firefox")) {
             driverBaseTest =  WebDriverManager.firefoxdriver().create();
             //System.setProperty("webdriver.gecko.driver", projectPath + "/browserDriver/geckodriver");
-          //  driverBaseTest = new FirefoxDriver();
+
+            // Add extension to Firefox
+            FirefoxProfile profile = new FirefoxProfile();
+            File translate = new File(GlobalConstants.PROJECT_PATH + "/browserExtensions/google_translate.crx");
+            profile.addExtension(translate);
+            FirefoxOptions options = new FirefoxOptions();
+            options.setProfile(profile);
+           // driverBaseTest = new FirefoxDriver(options);
+
         }
         else if (browserName.equals("chrome")) {
             //driverBaseTest = WebDriverManager.chromedriver().create();
             System.setProperty("webdriver.chrome.driver", projectPath + "/browserDriver/chromedriver");
-            driverBaseTest = new ChromeDriver();
+            Map<String, Object> prefs = new HashMap<String, Object>();
+            //Add Extension to Chrome
+            File file = new File(GlobalConstants.PROJECT_PATH + "/browserExtensions/google_translate.crx");
+            ChromeOptions options = new ChromeOptions();
+            //change language
+            options.addArguments("--lang=vi");
+            //disable notification popup
+            options.addArguments("--disable-notifications");
+            //disable location popup
+            options.addArguments("--disable-geolocation");
+            //close automation info bar
+            options.setExperimentalOption("useAutomationExtension", false);
+            options.setExperimentalOption("excludeSwitches", Collections.singletonList("enable-automation"));
+            //dont save password popup
+            prefs.put("credentials_enable_service", false);
+            prefs.put("profile.password_manager_enable", false);
+            //incognito mode
+            options.addArguments("--incognito");
+
+            //download Files location
+            prefs.put("profile.default_content_settings.popups", 0);
+            prefs.put("download.default_directory", GlobalConstants.PROJECT_PATH + "/downloadFiles");
+            options.setExperimentalOption("prefs", prefs);
+
+
+
+            options.addExtensions(file);
+            driverBaseTest = new ChromeDriver(options);
+        }
+        else if (browserName.equals("h_chrome")) {
+            WebDriverManager.chromedriver().setup();
+            ChromeOptions options = new ChromeOptions();
+            options.addArguments("--headless");
+            options.addArguments("window-size=1920x1080");
+            driverBaseTest = new ChromeDriver(options);
+        }
+        else if (browserName.equals("edge")) {
+            WebDriverManager.edgedriver().setup();
+            driverBaseTest = new EdgeDriver();
+        }
+        else if (browserName.equals("IE")) {
+            WebDriverManager.iedriver().arch64().setup();
+
         }
         else {
             throw new RuntimeException("Browser name invalid");
